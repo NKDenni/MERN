@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    
     document.getElementById("button").onclick = () => {
         setBackgroundColorById("paragraph", "blue");
     }
@@ -11,13 +12,13 @@ $(document).ready(function () {
     document.getElementById("hover-this").onmouseout = () => {
         setBackgroundColorById("body", "white");
     }
-    getValueFromId = (id) => {
+    const getValueFromId = (id) => {
         return document.getElementById(id).value;
     }
-    setBackgroundColorById = (id, color) => {
+    const setBackgroundColorById = (id, color) => {
         document.getElementById(id).style = "background-color: " + color;
     }
-    mouseOverFunction = (el) => {
+    const mouseOverFunction = (el) => {
         el.style = "background-color: black";
     }
 });
