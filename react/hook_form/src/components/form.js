@@ -41,11 +41,11 @@ const Form = (props) => {
                 </div>
                 <div className="item">
                     <label>Password: </label>
-                    <input type="text" values={password} onChange={(e) => setPassword(e.target.value)} />
+                    <input type="password" values={password} onChange={(e) => setPassword(e.target.value)} />
                 </div>
                 <div className="item">
                     <label>Confirm Password: </label>
-                    <input type="text" values={conPassword} onChange={(e) => setConPassword(e.target.value)} />
+                    <input type="password" values={conPassword} onChange={(e) => setConPassword(e.target.value)} />
                 </div>
                 <div className="btn">
                     <input type="submit" value="Create User" />
