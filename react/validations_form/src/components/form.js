@@ -1,21 +1,5 @@
 import React, { useReducer } from 'react';
 
-// const Form = (props) => {
-//     const [firstName, setFirstName] = useState("");
-//     const [lastName, setLastName] = useState("");
-//     const [email, setEmail] = useState("");
-//     const [password, setPassword] = useState("");
-//     const [conPassword, setConPassword] = useState("");
-
-//     const [firstNameError, setFirstNameError] = useState("");
-//     const [lastNameError, setLastNameError] = useState("");
-//     const [emailError, setEmailError] = useState("");
-//     const [passwordError, setPasswordError] = useState("");
-//     const [conPasswordError, setConPasswordError] = useState("");
-
-const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-const passwordRegex = /^(?=.*?[0-9])(?=.*?[a-z])(?=.*?[A-Z])[a-zA-Z\d\w].+$/;
-
 const initialState = {
     firstName: {
         value: '',
@@ -28,70 +12,34 @@ const initialState = {
     email: {
         value: '',
         error: null
-    },
-    password: {
-        value: '',
-        error: null
-    },
-    conPassword: {
-        value: '',
-        error: null
     }
 };
 
+const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
 function reducer(state, action) {
+    const {type, payload} = action;
+    let message = null;
+    if (type === 'firstName'){
+        if (payload.length < 2){
+            message = "Name must be 2 characters or longer!"
+        }
+    }
+    if (type === 'lastName'){
+        if (payload.length <2){
+            message = "Name must be 2 characters or longer!"
+        }
+    }
+    if (type === 'email'){
+        if(!emailRegex.test(payload)){
+            message = "Not a valid email"
+        }
+    }
     return {
         ...state,
-        [action.type]: action.payload
+        [type]: {value:payload, error: message}
     };
 }
-
-    // const handleFirstName = (e) => {
-    //     setFirstName(e.target.value);
-    //     if (e.target.value.length < 2) {
-    //         setFirstNameError("Name must be 2 characters or longer!");
-    //     } else {
-    //         setFirstNameError("");
-    //     }
-    // }
-
-    // const handleLastName = (e) => {
-    //     setLastName(e.target.value);
-    //     if (e.target.value.length < 2) {
-    //         setLastNameError("Name must be 2 characters or longer!");
-    //     } else {
-    //         setLastNameError("");
-    //     }
-    // }
-
-    // const handleEmail = (e) => {
-    //     setEmail(e.target.value);
-    //     if (!emailRegex.test(email)) {
-    //         setEmailError("Not a valid email!");
-    //     } else {
-    //         setEmailError("");
-    //     }
-    // }
-
-    // const handlePassword = (e) => {
-    //     setPassword(e.target.value);
-    //     if (e.target.value.length < 8) {
-    //         setPasswordError("Password must be at least 8 characters or longer!");
-    //     } else if (!passwordRegex.test(password)) {
-    //         setPasswordError("Must contain a-z, A-Z, 0-9");
-    //     } else {
-    //         setPasswordError("");
-    //     }
-    // }
-
-    // const handleConPassword = (e) => {
-    //     setConPassword(e.target.value);
-    //     if (e.target.value !== password) {
-    //         setConPasswordError("Password doesn't match!");
-    //     } else {
-    //         setConPasswordError("");
-    //     }
-    // }
 
 export default () => {
     const [state, dispatch] = useReducer(reducer, initialState);
@@ -104,119 +52,57 @@ export default () => {
         });
     }
 
-        return (
-            <div>
-                {JSON.stringify(state)}
-                <div>
-                    <label>
-                        <span>First Name:</span>{' '}
-                        <input
-                            name="firstname"
-                            value={state.firstName}
-                            onChange={handleChange}
-                        />
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        <span>Last Name:</span>{' '}
-                        <input
-                            name="lastname"
-                            value={state.lastName}
-                            onChange={handleChange}
-                        />
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        <span>Email:</span>{' '}
-                        <input
-                            name="email"
-                            value={state.email}
-                            onChange={handleChange}
-                        />
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        <span>Password:</span>{' '}
-                        <input
-                            type="password"
-                            name="password"
-                            value={state.password}
-                            onChange={handleChange}
-                        />
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        <span>Confirm Password:</span>{' '}
-                        <input
-                            type="password"
-                            name="conpassword"
-                            value={state.conPassword}
-                            onChange={handleChange}
-                        />
-                    </label>
-                </div>
+    return (
+        <form className="row">
+            {/* {JSON.stringify(state)} */}
+            <div className="my-2">
+                <p className="error">
+                    {state.firstName.error !== null && (state.firstName.error)}
+                </p>
+                <label>
+                    <span className="col-sm-3 me-4">First name:</span>{' '}
+                </label>
+                <input
+                    className="col-sm-9"
+                    type="text"
+                    name="firstName"
+                    value={state.name}
+                    onChange={handleChange}
+                />
             </div>
-        );
-    }
-
-
-    // return (
-    //     <div className="container">
-    //         <form onSubmit={(e) => e.preventDefault()}>
-    //             <div className="item">
-    //                 <label>First name: </label>
-    //                 <input type="text" value={firstName} onChange={ handleFirstName } />
-    //                 {
-    //                     firstNameError ?
-    //                         <p>{firstNameError}</p> :
-    //                         ''
-    //                 }
-    //             </div>
-    //             <div className="item">
-    //                 <label>Last name: </label>
-    //                 <input type="text" value={lastName} onChange={ handleLastName } />
-    //                 {
-    //                     lastNameError ?
-    //                         <p>{lastNameError}</p> :
-    //                         ''
-    //                 }
-    //             </div>
-    //             <div className="item">
-    //                 <label>Email Address: </label>
-    //                 <input type="text" value={email} onChange={ handleEmail } />
-    //                 {
-    //                     emailError ?
-    //                         <p>{emailError}</p> :
-    //                         ''
-    //                 }
-    //             </div>
-    //             <div className="item">
-    //                 <label>Password: </label>
-    //                 <input type="password" onChange={handlePassword} />
-    //                 {
-    //                     passwordError ?
-    //                         <p>{passwordError}</p> :
-    //                         ''
-    //                 }
-    //             </div>
-    //             <div className="item">
-    //                 <label>Confirm Password: </label>
-    //                 <input type="password" onChange={handleConPassword} />
-    //                 {
-    //                     conPasswordError ?
-    //                         <p>{conPasswordError}</p> :
-    //                         ''
-    //                 }
-    //             </div>
-    //             <div className="btn">
-    //                 <input type="submit" value="Create User" />
-    //             </div>
-    //         </form>
-    //     </div>
-    // );
-
-// export default Form;
+            <div className="my-2">
+                <p className="error">
+                {state.lastName.error !== null && ( state.lastName.error )}
+                </p>
+                <label>
+                    <span className="col-sm-3 me-4">Last name:</span>{' '}
+                </label>
+                <input
+                    className="col-sm-9"
+                    type="text"
+                    name="lastName"
+                    value={state.name}
+                    onChange={handleChange}
+                />
+            </div>
+            <div className="my-2">
+                <p className="error mt-2">
+                {state.email.error !== null && ( state.email.error )}
+                </p>
+                <label>
+                    <span className="col-sm-4 me-5 pe-2">Email :</span>{' '}
+                </label>
+                <input
+                    className="col-sm-9"
+                    type="text"
+                    name="email"
+                    value={state.name}
+                    onChange={handleChange}
+                />
+            </div>
+            <div className="text-center">
+                <button className="col-sm-1 btn-primary">Submit</button>
+            </div>
+        </form>
+    );
+}

@@ -5,7 +5,7 @@ import './App.css';
 
 function App() {
   return (
-    <div className="container">
+    <div className="container d-flex justify-content-center mt-5">
       <Form />
     </div>
   );
