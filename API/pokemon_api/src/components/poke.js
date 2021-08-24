@@ -5,7 +5,7 @@ const Pokemon = (props) => {
     const [poke, setPoke] = useState([]);
 
     useEffect(() => {
-        fetch("https://pokeapi.co/api/v2/pokemon")
+        fetch("https://pokeapi.co/api/v2/pokemon?limit=807")
             .then(response => { return response.json(); })
             // .then(response => { console.log(response); })
             .then(response => setPoke(response.results))
@@ -20,7 +20,7 @@ const Pokemon = (props) => {
             {
             poke.map((p,index)=>{
                 return (
-                    <li key={index} className="col-sm-2">{p.name}</li>
+                    <li key={index} className="col-sm-5 w-100 text-start">{p.name}</li>
                 )
             })
             }
