@@ -27,20 +27,19 @@ function fiveHeads() {
     while (headsCount < 5) {
         attempts++;
         let result = tossCoin();
-        console.log(`${result} was flipped`);
+        // console.log(`${result} was flipped`);
         if (result === "heads") {
             headsCount++;
         } else {
             headsCount = 0;
         }}
     return new Promise((resolve, reject) => {
+        if (attempts > 100) {
+            reject("tried too many times");
+        }
         if(headsCount === 5){
             resolve(`It took ${attempts} tries to flip five "heads" in a row`);
-        } else if(headsCount !== 5) {
-            resolve(`${result} was flipped`);
-        } else{
-            reject("something broke")
-        }
+        } 
     });
 }
 
