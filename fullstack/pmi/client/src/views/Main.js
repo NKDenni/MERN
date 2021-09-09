@@ -8,10 +8,6 @@ const Main = () => {
     const [price, setPrice] = useState(0.00);
     const [desc, setDesc] = useState("");
 
-    // useEffect(() => {
-    //     axios.get("http://localhost:8000/api")
-    //         .then(res => setMessage(res.data.message))
-    // }, []);
     return (
         <div>
             {/* <h2>Message from the backend: { message }</h2> */}
