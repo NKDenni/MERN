@@ -42,7 +42,7 @@ module.exports = {
             { new: true, runValidators: true }
         )
             .then(updatedProduct => res.json(updatedProduct))
-            .catch(err => res.json({ message: 'Something went wrong', error: err }));
+            .catch(err => res.json({ message: 'Something went wrong', error: err }))
     },
 
     deleteProduct: (req, res) => {
@@ -53,11 +53,3 @@ module.exports = {
     }
 }
 
-// module.exports.index = (request, response) => {
-//     Product.find({}).sort({_id:-1}).limit(1)
-//     console.log(Product.find({}).sort({ _id: -1 }).limit(1))
-//     .then((lastProduct) => {
-//         response.json({ message: lastProduct })
-//         .catch((err) => response.json({ message: "Error finding last input product", error: err }));
-//     })
-// }
